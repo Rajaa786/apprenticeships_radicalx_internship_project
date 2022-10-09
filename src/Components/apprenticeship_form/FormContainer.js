@@ -1,14 +1,12 @@
 import React, { useState } from "react";
+import Button from "@mui/material/Button";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ErrorOutlineRoundedIcon from "@mui/icons-material/ErrorOutlineRounded";
-import Checkbox from "@mui/material/Checkbox";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
@@ -16,15 +14,15 @@ import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOu
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import ImageIcon from "./icons/ImageIcon";
-import TeamType from "./TeamType";
 import Modal from "./RoleModal/Modal";
+import ReqSkills from "./MultiSelect/ReqSkills";
 
 import "../../StyleSheets/form.css";
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
 function FormContainer() {
   const [show, setShow] = useState(false);
   const [skill, setSkill] = useState(false);
+  const [compskill, setCompskill] = useState(false);
 
   return (
     <div className="formContainer">
@@ -209,6 +207,7 @@ function FormContainer() {
                       )}
                     />
                   </div>
+                  {/*===========================Role Description================================ */}
                   <div className="roledesc">Role Description</div>
                   <div className="form_field role-field">
                     <textarea
@@ -216,11 +215,13 @@ function FormContainer() {
                       placeholder="Describe the responsibilities"
                     />
                   </div>
+
+                  {/*====================Required Skills========================== */}
                   <div className="roledesc req-skills">
                     Required Skills (Select any 3)
                   </div>
                   <div>
-                    <button
+                    <Button
                       className="Skills-select field_header"
                       onClick={() => {
                         setSkill((skill) => !skill);
@@ -236,6 +237,7 @@ function FormContainer() {
                           margin: "0.5rem",
                         }}
                       />
+
                       <div className="skills-text">Select Skills</div>
                       <ArrowDropDownIcon
                         style={{
@@ -247,37 +249,23 @@ function FormContainer() {
                           margin: "0.5rem",
                         }}
                       />
-                    </button>
+                    </Button>
+                    {skill ? (
+                      <div>
+                        <ReqSkills />
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
                   </div>
-                  {/* <Autocomplete
-                multiple
-                id="checkboxes-tags-demo"
-                options={languages}
-                disableCloseOnSelect
-                getOptionLabel={(option) => option.title}
-                renderOption={(props, option, { selected }) => (
-                  <li {...props}>
-                    <Checkbox
-                      icon={icon}
-                      checkedIcon={checkedIcon}
-                      style={{ marginRight: 8 }}
-                      checked={selected}
-                    />
-                    {option.title}
-                  </li>
-                )}
-                style={{ width: 500 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Checkboxes" placeholder="Favorites" />
-                )}
-                />*/}
+                  {/*===========================Complementary Skills======================== */}
                   <div className="roledesc req-skills">
                     Complementary Skills (Select any 3)
                   </div>
                   <div
                     className="Skills-select field_header"
                     onClick={() => {
-                      setSkill((skill) => !skill);
+                      setCompskill((compskill) => !compskill);
                     }}
                   >
                     <StarBorderIcon
@@ -302,16 +290,11 @@ function FormContainer() {
                       }}
                     />
                   </div>
+                  {/*===========================Minimum hours========================= */}
                   <div className="roledesc req-skills">
                     Minimum Hours Per Week
                   </div>
-
-                  <div
-                    className="Skills-select "
-                    onClick={() => {
-                      setSkill((skill) => !skill);
-                    }}
-                  >
+                  <div className="Skills-select ">
                     <QueryBuilderIcon
                       style={{
                         display: "flex",
@@ -340,14 +323,6 @@ function FormContainer() {
     </div>
   );
 }
-
-const searchRoles = [
-  "iOS Developer",
-  "Android Developer",
-  "Full Stack Developer",
-  "Back-end Developer",
-  "Front-end Developer",
-  "",
-];
+const searchRoles = [];
 const languages = ["Swift", "Java", "Python", "JavaScript", "Reactjs"];
 export default FormContainer;
