@@ -140,7 +140,7 @@
 /*=============Team Types=================*/
 #team_type_field .form_field {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14.375rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(14.375rem, 1fr));
     gap: 1rem;
 }
 
@@ -175,20 +175,6 @@
 /*=============Team member roles=================*/
 
 .field_role {
-    /* display: flex;
-    flex-direction: row;
-    justify-content: flex-start; */
-    display: grid;
-    grid-template-columns: 0.6fr 1fr 2fr;
-    background-color: white;
-    gap: 1rem;
-    border-radius: 1.5rem;
-    font-family: 'Space Grotesk';
-    font-style: normal;
-    font-weight: 500;
-    line-height: 15px;
-    letter-spacing: 0.3px;
-    font-feature-settings: 'liga'off;
     /* padding: 1.5rem; */
 }
 
@@ -283,6 +269,9 @@
     border: none;
 }
 
+
+
+
 /*Required skills*/
 .req-skills {
     width: max-content;
@@ -314,4 +303,76 @@
     font-feature-settings: 'liga'off;
     color: #1E1E1E;
     opacity: 0.3;
+}
+
+
+
+/******** Team Admin ********/
+
+#admin_field .form_field {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22.0625rem, 1fr));
+    gap: 1rem;
+
+}
+
+
+.team_admin_container {
+    /* width: 22.0625rem; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0.75rem;
+    border: 1px solid #CFD3D9;
+    border-radius: 1rem;
+}
+
+.team_admin_container .sub_container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.team_admin_container .sub_container .box {
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: var(--color_gray_50);
+    border-radius: 0.5rem;
+}
+
+
+
+
+/* _______ Timeline Field ________ */
+#timeline_field .form_field {
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+#timeline_field .form_field>* {
+    flex-grow: 1;
+}
+
+
+#timeline_field .form_field>div>* {
+    width: 100%;
+    font-family: "Space Grotesk",
+        sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ______ Common Classes ______ */
+.header_content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }

@@ -6,5 +6,9 @@
 
   "editor.tabCompletion": "on",
 
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+
   "emmet.triggerExpansionOnTab": true
 }

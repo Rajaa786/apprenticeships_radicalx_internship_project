@@ -19,12 +19,22 @@ import Modal from "./RoleModal/Modal";
 import ReqSkills from "./MultiSelect/ReqSkills";
 import { body } from "../../index_DOM_Fetcher.js";
 import TeamType from "./TeamType";
+import TeamAdmin from "./TeamAdmin";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import "../../StyleSheets/form.css";
 
 function FormContainer() {
   const [show, setShow] = useState(false);
   const [skill, setSkill] = useState(false);
   const [compskill, setCompskill] = useState(false);
+  const [selectedDate, handleDateChange] = useState(null);
 
   const freezeBody = () => {
     body.style.overflow = "hidden";
@@ -160,206 +170,269 @@ function FormContainer() {
 
         {/* Role Field*/}
         <div id="role_field" className="field_role field_container">
-          <div className="field_header">Team Roles</div>
-          <div className="add_member">
-            <button
-              className="addTeam"
-              onClick={() => {
-                setShow(true);
-                freezeBody();
-              }}
-            >
-              <AddCircleOutlineIcon style={{ padding: "2px" }} />
-              <div style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                Add Team Member
-              </div>
-            </button>
-            <form>
-              <Modal show={show} onClose={() => setShow(false)}>
-                <div className="roleSearch">
-                  <PermIdentityIcon
-                    style={{
-                      position: "relative",
-                      width: "26px",
-                      height: "26px",
-                      color: "#793EF5",
-                      margin: "16px 0 0 10px",
-                      display: "flex",
-                      flexDirection: "row",
-                      alignSelf: "flex-start",
-                    }}
-                  />
-                  <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    sx={{
-                      " &.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        border: "none",
-                      },
-                    }}
-                    style={{
-                      width: "552px",
-                      height: "48px",
-                      background: "none",
-                      position: "absolute",
-                    }}
-                    options={searchRoles}
-                    renderInput={(params) => (
-                      <TextField
-                        fullWidth
-                        style={{
-                          borderColor: "transparent",
-                          background: "none",
-                          border: "1px solid #665FEF",
-                          borderRadius: "12px",
-                          alignSelf: "stretch",
-                          position: "absolute",
-                          caretColor: "transparent",
-                          paddingLeft: "45px",
-                        }}
-                        placeholder="Select Role"
-                        {...params}
-                        label=""
-                      />
-                    )}
-                  />
-                </div>
-                {/*===========================Role Description================================ */}
-                <div className="roledesc">Role Description</div>
-                <div className="form_field role-field">
-                  <textarea
-                    type="text"
-                    placeholder="Describe the responsibilities"
-                  />
-                </div>
-
-                {/*====================Required Skills========================== */}
-                <div className="roledesc req-skills">
-                  Required Skills (Select any 3)
-                </div>
-                <div>
-                  <Button
-                    className="Skills-select field_header"
-                    onClick={() => {
-                      setSkill((skill) => !skill);
-                    }}
-                  >
-                    <WorkspacePremiumOutlinedIcon
-                      style={{
-                        display: "flex",
-                        width: "28px",
-                        flexDirection: "row",
-                        color: "#793EF5",
-                        alignSelf: "flex-start",
-                        margin: "0.5rem",
-                      }}
-                    />
-
-                    <div className="skills-text">Select Skills</div>
-                    <ArrowDropDownIcon
-                      style={{
-                        display: "flex",
-                        width: "28px",
-                        flexDirection: "row",
-                        color: "#793EF5",
-                        alignSelf: "flex-end",
-                        margin: "0.5rem",
-                      }}
-                    />
-                  </Button>
-                  {skill ? (
-                    <div>
-                      <ReqSkills />
-                    </div>
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                {/*===========================Complementary Skills======================== */}
-                <div className="roledesc req-skills">
-                  Complementary Skills (Select any 3)
-                </div>
-                <div
-                  className="Skills-select field_header"
+          <div className="field_header">
+            <div className="header_content">
+              Team Roles
+              <div className="add_member">
+                <button
+                  className="addTeam"
                   onClick={() => {
-                    setCompskill((compskill) => !compskill);
+                    setShow(true);
+                    freezeBody();
                   }}
                 >
-                  <StarBorderIcon
-                    style={{
-                      display: "flex",
-                      width: "28px",
-                      flexDirection: "row",
-                      color: "#793EF5",
-                      alignSelf: "flex-start",
-                      margin: "0.5rem",
-                    }}
-                  />
-                  <input className="skills-text" />
-                  <ArrowDropDownIcon
-                    style={{
-                      display: "flex",
-                      width: "28px",
-                      flexDirection: "row",
-                      color: "#793EF5",
-                      alignSelf: "flex-end",
-                      margin: "0.5rem",
-                    }}
-                  />
-                </div>
-                {/*===========================Minimum hours========================= */}
-                <div className="roledesc req-skills">
-                  Minimum Hours Per Week
-                </div>
-                <div className="Skills-select ">
-                  <QueryBuilderIcon
-                    style={{
-                      display: "flex",
-                      width: "28px",
-                      flexDirection: "row",
-                      color: "#793EF5",
-                      alignSelf: "flex-start",
-                      margin: "0.5rem",
-                    }}
-                  />
-                  <input type="number" disablePortal />
-                </div>
-              </Modal>
-            </form>
-          </div>
-          <div id="role-error">
-            <ErrorOutlineRoundedIcon
-              style={{
-                color: "#A6ABBB",
-              }}
-            />
+                  <AddCircleOutlineIcon style={{ padding: "2px" }} />
+                  <div style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                    Add Team Member
+                  </div>
+                </button>
+                <form>
+                  <Modal show={show} onClose={() => setShow(false)}>
+                    <div className="roleSearch">
+                      <PermIdentityIcon
+                        style={{
+                          position: "relative",
+                          width: "26px",
+                          height: "26px",
+                          color: "#793EF5",
+                          margin: "16px 0 0 10px",
+                          display: "flex",
+                          flexDirection: "row",
+                          alignSelf: "flex-start",
+                        }}
+                      />
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        sx={{
+                          " &.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            border: "none",
+                          },
+                        }}
+                        style={{
+                          width: "552px",
+                          height: "48px",
+                          background: "none",
+                          position: "absolute",
+                        }}
+                        options={searchRoles}
+                        renderInput={(params) => (
+                          <TextField
+                            fullWidth
+                            style={{
+                              borderColor: "transparent",
+                              background: "none",
+                              border: "1px solid #665FEF",
+                              borderRadius: "12px",
+                              alignSelf: "stretch",
+                              position: "absolute",
+                              caretColor: "transparent",
+                              paddingLeft: "45px",
+                            }}
+                            placeholder="Select Role"
+                            {...params}
+                            label=""
+                          />
+                        )}
+                      />
+                    </div>
+                    {/*===========================Role Description================================ */}
+                    <div className="roledesc">Role Description</div>
+                    <div className="form_field role-field">
+                      <textarea
+                        type="text"
+                        placeholder="Describe the responsibilities"
+                      />
+                    </div>
+
+                    {/*====================Required Skills========================== */}
+                    <div className="roledesc req-skills">
+                      Required Skills (Select any 3)
+                    </div>
+                    <div>
+                      <Button
+                        className="Skills-select field_header"
+                        onClick={() => {
+                          setSkill((skill) => !skill);
+                        }}
+                      >
+                        <WorkspacePremiumOutlinedIcon
+                          style={{
+                            display: "flex",
+                            width: "28px",
+                            flexDirection: "row",
+                            color: "#793EF5",
+                            alignSelf: "flex-start",
+                            margin: "0.5rem",
+                          }}
+                        />
+
+                        <div className="skills-text">Select Skills</div>
+                        <ArrowDropDownIcon
+                          style={{
+                            display: "flex",
+                            width: "28px",
+                            flexDirection: "row",
+                            color: "#793EF5",
+                            alignSelf: "flex-end",
+                            margin: "0.5rem",
+                          }}
+                        />
+                      </Button>
+                      {skill ? (
+                        <div>
+                          <ReqSkills />
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </div>
+                    {/*===========================Complementary Skills======================== */}
+                    <div className="roledesc req-skills">
+                      Complementary Skills (Select any 3)
+                    </div>
+                    <div
+                      className="Skills-select field_header"
+                      onClick={() => {
+                        setCompskill((compskill) => !compskill);
+                      }}
+                    >
+                      <StarBorderIcon
+                        style={{
+                          display: "flex",
+                          width: "28px",
+                          flexDirection: "row",
+                          color: "#793EF5",
+                          alignSelf: "flex-start",
+                          margin: "0.5rem",
+                        }}
+                      />
+                      <input className="skills-text" />
+                      <ArrowDropDownIcon
+                        style={{
+                          display: "flex",
+                          width: "28px",
+                          flexDirection: "row",
+                          color: "#793EF5",
+                          alignSelf: "flex-end",
+                          margin: "0.5rem",
+                        }}
+                      />
+                    </div>
+                    {/*===========================Minimum hours========================= */}
+                    <div className="roledesc req-skills">
+                      Minimum Hours Per Week
+                    </div>
+                    <div className="Skills-select ">
+                      <QueryBuilderIcon
+                        style={{
+                          display: "flex",
+                          width: "28px",
+                          flexDirection: "row",
+                          color: "#793EF5",
+                          alignSelf: "flex-start",
+                          margin: "0.5rem",
+                        }}
+                      />
+                      <input type="number" disablePortal />
+                    </div>
+                  </Modal>
+                </form>
+              </div>
+            </div>
+            <div id="role-error">
+              <ErrorOutlineRoundedIcon
+                style={{
+                  color: "#A6ABBB",
+                }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Admin Field */}
-        <div id="role_field" className="field_role field_container">
-          <div className="field_header">Team Admin</div>
-          <div className="add_member">
-            <button
-              className="addTeam"
-              onClick={() => {
-                setShow(true);
-                freezeBody();
-              }}
-            >
-              <AddCircleOutlineIcon style={{ padding: "2px" }} />
-              <div style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                Add Team Member
+        <div id="admin_field" className="field_role field_container">
+          <div className="field_header">
+            <div className="header_content">
+              Team Admin
+              <div className="add_member">
+                <button
+                  className="addTeam"
+                  onClick={() => {
+                    setShow(true);
+                    freezeBody();
+                  }}
+                >
+                  <AddCircleOutlineIcon style={{ padding: "2px" }} />
+                  <div style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                    Add Team Member
+                  </div>
+                </button>
+                <form></form>
               </div>
-            </button>
-            <form></form>
+            </div>
+            <div id="role-error">
+              <ErrorOutlineRoundedIcon
+                style={{
+                  color: "#A6ABBB",
+                }}
+              />
+            </div>
           </div>
-          <div id="role-error">
-            <ErrorOutlineRoundedIcon
-              style={{
-                color: "#A6ABBB",
-              }}
-            />
+
+          <div className="form_field">
+            <TeamAdmin name="John McKinsey" />
+            <TeamAdmin name="John McKinsey" />
+            <TeamAdmin name="John McKinsey" />
+            <TeamAdmin name="John McKinsey" />
+            <TeamAdmin name="John McKinsey" />
+          </div>
+        </div>
+
+        {/* Timeline Field  */}
+        <div id="timeline_field" className="field_container">
+          <div className="field_header">
+            Timeline <ErrorOutlineRoundedIcon style={{ color: "#A6ABBB" }} />
+          </div>
+          <div className="form_field">
+            <div className="start_date">
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  inputVariant="outlined"
+                  clearable
+                  placeholder="Start Date"
+                  value={selectedDate}
+                  onChange={(date) => handleDateChange(date)}
+                  format="dd/MM/yyyy/"
+                  inputProps={{
+                    style: {
+                      fontFamily: "Space Grotesk, sans-serif",
+                      fontSize: "1rem",
+                      fontWeight: "600",
+                    },
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </div>
+            <div className="estimated_end_date">
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  inputVariant="outlined"
+                  clearable
+                  placeholder="Estimated End Date"
+                  value={selectedDate}
+                  onChange={(date) => handleDateChange(date)}
+                  format="dd/MM/yyyy/"
+                  inputProps={{
+                    style: {
+                      fontFamily: "Space Grotesk, sans-serif",
+                      fontSize: "1rem",
+                      fontWeight: "600",
+                    },
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </div>
           </div>
         </div>
       </div>
