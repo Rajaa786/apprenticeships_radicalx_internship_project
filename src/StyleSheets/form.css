@@ -110,6 +110,31 @@
     flex-grow: 1;
 }
 
+#introduction_field .form_field>label {
+    padding: 1.5rem 1.25rem;
+    font-size: 0.875rem;
+    color: #778188;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+#introduction_field .form_field {
+    border-radius: 0.5rem;
+    border: 1px dashed #B2B6BC;
+    background-color: var(--color_gray_10);
+    justify-content: center;
+}
+
+
+#introduction_field .form_field>input {
+    display: none;
+}
+
+
 
 
 /*=============Team Types=================*/
@@ -271,30 +296,12 @@
     height: 48px;
     display: flex;
     flex-direction: row;
-<<<<<<< HEAD
-    /* align-items: flex-start; */
-    /* padding: 12px 12px 12px 16px; */
-    background: #FFFFFF;
-    /* Purple */
-
-    border: 1px solid #793EF5;
-    border-radius: 12px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-}
-
-
-=======
     background: #FFFFFF;
     /* Purple */
     border: 1px solid #793EF5;
     border-radius: 12px;
 }
->>>>>>> 9556c8d4fa1fb2b666f65701ee0daf4ebfa619b9
+
 .skills-text {
     display: flex;
     flex-direction: row;
@@ -303,20 +310,8 @@
     font-size: 16px;
     line-height: 24px;
     /* identical to box height, or 150% */
-<<<<<<< HEAD
-
-
     letter-spacing: 0.3px;
     font-feature-settings: 'liga'off;
-
-    color: #1E1E1E;
-
-    opacity: 0.3;
-}
-=======
-    letter-spacing: 0.3px;
-    font-feature-settings: 'liga' off;
     color: #1E1E1E;
     opacity: 0.3;
 }
->>>>>>> 9556c8d4fa1fb2b666f65701ee0daf4ebfa619b9
