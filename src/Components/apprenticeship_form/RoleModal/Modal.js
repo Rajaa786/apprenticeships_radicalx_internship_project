@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./modal.module.css";
-import CancelIcon from "@mui/icons-material/Cancel";
 import Button from "@mui/material/Button";
 import { body } from "../../../index_DOM_Fetcher.js";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const Modal = ({ show, onClose, children }) => {
   if (!show) {
@@ -22,8 +22,8 @@ const Modal = ({ show, onClose, children }) => {
             <Button id={styles.btnrole}>Save</Button>
           </div>
           <div>
-            <CancelIcon
-              style={{ cursor: "pointer" }}
+            <CloseRoundedIcon
+              style={{ cursor: "pointer", color: "#292D32" }}
               onClick={() => {
                 onClose();
                 unfreezeBody();
