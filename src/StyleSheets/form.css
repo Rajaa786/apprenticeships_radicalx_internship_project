@@ -86,19 +86,6 @@
     align-items: center;
 }
 
-#logo_and_title_field .form_field .logo_field {
-    position: relative;
-    height: 5rem;
-    width: 5rem;
-    background-color: var(--color_gray_50);
-    border-radius: 1.25rem;
-}
-
-.logo_field #image_icon {
-    position: absolute;
-    top: 3.8125rem;
-    left: 3.8125rem;
-}
 
 #logo_and_title_field .form_field .title_field {
     font-size: 1.5rem;
@@ -197,7 +184,6 @@
 
 .add_member div {
     align-self: center;
-    margin-right: 1rem;
 }
 
 #role-error {
@@ -343,6 +329,55 @@
 
 
 
+
+/* Add Admin */
+
+.usernameBox,
+.urlBox {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem 1rem;
+    border: 1px solid var(--color_field_stroke);
+    border-radius: 1rem;
+    background-color: var(--color_secondary);
+}
+
+.usernameBox>input::placeholder,
+.urlBox>input::placeholder {
+    opacity: 0.5;
+    color: var(--color_dark);
+    font-weight: 600;
+}
+
+
+#admin_field .logo_field {
+    align-self: flex-start;
+}
+
+
+#admin_field .emailBox,
+#admin_field .usernameBox,
+#admin_field .urlBox {
+    background-color: white;
+    padding: 0.75rem 1rem;
+    width: 100%;
+}
+
+
+#admin_field .modal_form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+
+
+
+
+
+
 /* _______ Timeline Field ________ */
 #timeline_field .form_field {
     justify-content: space-between;
@@ -356,13 +391,7 @@
 
 #timeline_field .form_field>div>* {
     width: 100%;
-    font-family: "Space Grotesk",
-        sans-serif;
 }
-
-
-
-
 
 
 
@@ -375,4 +404,18 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.logo_field {
+    position: relative;
+    height: 5rem;
+    width: 5rem;
+    background-color: var(--color_gray_50);
+    border-radius: 1.25rem;
+}
+
+.logo_field #image_icon {
+    position: absolute;
+    top: 3.8125rem;
+    left: 3.8125rem;
 }

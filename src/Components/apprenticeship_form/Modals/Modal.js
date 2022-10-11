@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { body } from "../../../index_DOM_Fetcher.js";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-const Modal = ({ show, onClose, children }) => {
+const Modal = ({ form_title, show, onClose, children }) => {
   if (!show) {
     return null;
   }
@@ -17,7 +17,7 @@ const Modal = ({ show, onClose, children }) => {
     <div className={styles.modalWrapper}>
       <div className={styles.modal}>
         <div className={styles.modalhead}>
-          <div id={styles.modalHeader}>Add Role</div>
+          <div id={styles.modalHeader}>{form_title}</div>
           <div>
             <Button id={styles.btnrole}>Save</Button>
           </div>

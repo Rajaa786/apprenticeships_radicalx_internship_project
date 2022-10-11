@@ -15,7 +15,9 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 import ImageIcon from "./icons/ImageIcon";
-import Modal from "./RoleModal/Modal";
+import Modal from "./Modals/Modal";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import ReqSkills from "./MultiSelect/ReqSkills";
 import { body } from "../../index_DOM_Fetcher.js";
 import TeamType from "./TeamType";
@@ -28,13 +30,19 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import Input from "@mui/material/Input";
 import "../../StyleSheets/form.css";
+import LinkIcon from "./icons/LinkIcon";
+import { color, style } from "@mui/system";
 
 function FormContainer() {
-  const [show, setShow] = useState(false);
+  const [showRoleModal, setShowRoleModal] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
   const [skill, setSkill] = useState(false);
   const [compskill, setCompskill] = useState(false);
   const [selectedDate, handleDateChange] = useState(null);
+
+  const [email, setEmail] = useState("");
 
   const freezeBody = () => {
     body.style.overflow = "hidden";
@@ -177,7 +185,7 @@ function FormContainer() {
                 <button
                   className="addTeam"
                   onClick={() => {
-                    setShow(true);
+                    setShowRoleModal(true);
                     freezeBody();
                   }}
                 >
@@ -187,7 +195,11 @@ function FormContainer() {
                   </div>
                 </button>
                 <form>
-                  <Modal show={show} onClose={() => setShow(false)}>
+                  <Modal
+                    form_title="Add Role"
+                    show={showRoleModal}
+                    onClose={() => setShowRoleModal(false)}
+                  >
                     <div className="roleSearch">
                       <PermIdentityIcon
                         style={{
@@ -359,7 +371,7 @@ function FormContainer() {
                 <button
                   className="addTeam"
                   onClick={() => {
-                    setShow(true);
+                    setShowAdminModal(true);
                     freezeBody();
                   }}
                 >
@@ -368,7 +380,68 @@ function FormContainer() {
                     Add Team Member
                   </div>
                 </button>
-                <form></form>
+                <form>
+                  <Modal
+                    form_title="Add Team Admin"
+                    show={showAdminModal}
+                    onClose={() => setShowAdminModal(false)}
+                  >
+                    <div className="logo_field">
+                      <ImageIcon element_id="image_icon" />
+                    </div>
+
+                    <Input
+                      disableUnderline
+                      className="usernameBox"
+                      placeholder="Name"
+                      type="text"
+                      onChange
+                      startAdornment={
+                        <PersonOutlineRoundedIcon
+                          position="start"
+                          style={{ color: "#793EF5", marginRight: "9px" }}
+                        />
+                      }
+                      inputProps={{
+                        style: {
+                          fontFamily: "Space Grotesk,sans-serif",
+                        },
+                      }}
+                    />
+                    <Input
+                      disableUnderline
+                      className="emailBox"
+                      placeholder="Email"
+                      type="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      startAdornment={
+                        <EmailOutlinedIcon
+                          position="start"
+                          style={{ color: "#793EF5", marginRight: "9px" }}
+                        />
+                      }
+                      inputProps={{
+                        style: {
+                          fontFamily: "Space Grotesk,sans-serif",
+                        },
+                      }}
+                    />
+
+                    <Input
+                      disableUnderline
+                      className="urlBox"
+                      placeholder="LinkedIn URL (optional)"
+                      type="url"
+                      startAdornment={<LinkIcon />}
+                      inputProps={{
+                        style: {
+                          fontFamily: "Space Grotesk,sans-serif",
+                        },
+                      }}
+                    />
+                  </Modal>
+                </form>
               </div>
             </div>
             <div id="role-error">
@@ -403,12 +476,22 @@ function FormContainer() {
                   placeholder="Start Date"
                   value={selectedDate}
                   onChange={(date) => handleDateChange(date)}
-                  format="dd/MM/yyyy/"
+                  format="dd/MM/yyyy"
                   inputProps={{
                     style: {
                       fontFamily: "Space Grotesk, sans-serif",
                       fontSize: "1rem",
                       fontWeight: "600",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      borderRadius: "0.75rem",
+                    },
+                  }}
+                  KeyboardButtonProps={{
+                    style: {
+                      color: "#793EF5",
                     },
                   }}
                 />
@@ -422,12 +505,22 @@ function FormContainer() {
                   placeholder="Estimated End Date"
                   value={selectedDate}
                   onChange={(date) => handleDateChange(date)}
-                  format="dd/MM/yyyy/"
+                  format="dd/MM/yyyy"
                   inputProps={{
                     style: {
                       fontFamily: "Space Grotesk, sans-serif",
                       fontSize: "1rem",
                       fontWeight: "600",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      borderRadius: "0.75rem",
+                    },
+                  }}
+                  KeyboardButtonProps={{
+                    style: {
+                      color: "#793EF5",
                     },
                   }}
                 />
