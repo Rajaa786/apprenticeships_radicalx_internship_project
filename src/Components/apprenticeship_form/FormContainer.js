@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
@@ -19,7 +20,11 @@ import Modal from "./Modals/Modal";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import ReqSkills from "./MultiSelect/ReqSkills";
-import { body } from "../../index_DOM_Fetcher.js";
+import {
+  body,
+  filenameDisplayer,
+  elementToAppend,
+} from "../../index_DOM_Fetcher.js";
 import TeamType from "./TeamType";
 import TeamAdmin from "./TeamAdmin";
 import DateFnsUtils from "@date-io/date-fns";
@@ -43,6 +48,7 @@ function FormContainer() {
   const [selectedDate, handleDateChange] = useState(null);
 
   const [email, setEmail] = useState("");
+  const fileInputRef = useRef(null);
 
   const freezeBody = () => {
     body.style.overflow = "hidden";
@@ -53,6 +59,20 @@ function FormContainer() {
     let scrollHeight = event.currentTarget.scrollHeight;
 
     event.currentTarget.style.height = `${scrollHeight}px`;
+  };
+
+  const videoFileFieldHandler = (event) => {
+    console.log(fileInputRef);
+    let filename = event.target.files[0].name;
+    elementToAppend.innerHTML = filename;
+    filenameDisplayer.prepend(elementToAppend);
+    filenameDisplayer.classList.remove("display_none");
+  };
+
+  const deleteFileName = (event) => {
+    filenameDisplayer.classList.add("display_none");
+    fileInputRef.current.value = "";
+    console.log(fileInputRef);
   };
 
   return (
@@ -164,11 +184,20 @@ function FormContainer() {
               <UploadFileRoundedIcon style={{ fontSize: 20 }} />
             </label>
             <input
+              ref={fileInputRef}
               className="file_field"
               type="file"
               name="video_file"
               id="video_file"
               accept="video/*"
+              onChange={videoFileFieldHandler}
+            />
+          </div>
+
+          <div id="filenameDisplayer" className="display_none">
+            <CloseRoundedIcon
+              onClick={deleteFileName}
+              style={{ color: "#793EF5", cursor: "pointer" }}
             />
           </div>
         </div>

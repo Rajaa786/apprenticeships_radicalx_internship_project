@@ -123,6 +123,20 @@
     display: none;
 }
 
+#introduction_field #filenameDisplayer {
+    width: fit-content;
+    padding: 0.625rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: #EDEAFF;
+    color: var(--color_purple);
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    align-items: center;
+    gap: 1rem;
+}
+
 
 
 
