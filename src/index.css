@@ -21,12 +21,23 @@ html {
   padding: 0;
 }
 
-input {
+input,
+textarea {
   font-family: "Space Grotesk", sans-serif;
   border: none;
   outline: none;
   /* background: none; */
 }
+
+textarea {
+  resize: none;
+  text-align: justify;
+}
+
+textarea::-webkit-scrollbar {
+  display: none;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

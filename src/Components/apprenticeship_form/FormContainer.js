@@ -48,6 +48,13 @@ function FormContainer() {
     body.style.overflow = "hidden";
   };
 
+  const textareaHeightHandler = (event) => {
+    console.log(event.currentTarget.scrollHeight);
+    let scrollHeight = event.currentTarget.scrollHeight;
+
+    event.currentTarget.style.height = `${scrollHeight}px`;
+  };
+
   return (
     <div className="formContainer">
       {/* Form Header  */}
@@ -105,7 +112,7 @@ function FormContainer() {
             <input
               className="title_field"
               type="text"
-              placeholder="Enter  Apprenticeship Title"
+              placeholder="Enter Apprenticeship Title"
             />
           </div>
         </div>
@@ -116,26 +123,32 @@ function FormContainer() {
             <ErrorOutlineRoundedIcon style={{ color: "#A6ABBB" }} />
           </div>
           <div className="form_field">
-            <input
+            <textarea
               className="title_field"
-              type="text"
-              placeholder="Enter  Apprenticeship Title"
-            />
+              name=""
+              id=""
+              rows="1"
+              placeholder="Enter description"
+              onKeyUp={textareaHeightHandler}
+            ></textarea>
           </div>
         </div>
 
         {/* Apprenticeship Description */}
-        <div id="company_description_field" className="field_container">
+        <div id="apprenticeship_description_field" className="field_container">
           <div className="field_header">
             Apprenticeship Description
             <ErrorOutlineRoundedIcon style={{ color: "#A6ABBB" }} />
           </div>
           <div className="form_field">
-            <input
+            <textarea
               className="title_field"
-              type="text"
-              placeholder="Enter  Apprenticeship Title"
-            />
+              name=""
+              id=""
+              rows="1"
+              placeholder="Enter description"
+              onKeyUp={textareaHeightHandler}
+            ></textarea>
           </div>
         </div>
 
