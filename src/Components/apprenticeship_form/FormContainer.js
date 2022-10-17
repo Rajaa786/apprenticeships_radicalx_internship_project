@@ -19,8 +19,10 @@ import ImageIcon from "./icons/ImageIcon";
 import Modal from "./Modals/Modal";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { InputAdornment } from "@mui/material";
 import ReqSkills from "./MultiSelect/ReqSkills";
+import Location from "./Location/Location";
 import {
   body,
   filenameDisplayer,
@@ -393,9 +395,14 @@ function FormContainer() {
                       />
                       <input type="number" disablePortal />
                     </div>
-                    <div className="locationPrefContainer">
-                      <div className="modal_field_header"></div>
-                    </div>
+                          {/*==============Location Preferences============== */}
+         <div className="roledesc req-skills minHours">Location Preferences</div>
+         <div className="Skills-select field_header" >
+           <LocationOnIcon style={{ display: "flex", width: "28px", flexDirection: "row", color: "#793EF5", alignSelf: "flex-start", margin: "0.5rem" }}
+           />
+           <div className="skills-text"><Location /></div>
+          <ArrowDropDownIcon style={{ display: "flex", width: "28px", flexDirection: "row", color: "#793EF5", alignSelf: "flex-end", margin: "0.5rem" }} />
+         </div>
                   </Modal>
                 </form>
               </div>
